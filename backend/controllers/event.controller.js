@@ -2,226 +2,141 @@ const eventService = require('../services/event.service')
 
 class EventController {
 
-    async createEvent(req, res) {
+    async createEvent(req, res, next) {
         try {
             const body = req.body
-            if (!body) {
-                throw new Error('Отсутствует тело запроса!')
-            }
             const data = await eventService.createEvent(body)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(201).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async getEvents(req, res) {
+    async getEvents(req, res, next) {
         try {
-            const data = await eventService.getEvents()
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
+            const query = req.query
+            const data = await eventService.getEvents(query)
             res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async getEvent(req, res) {
+    async getEvent(req, res, next) {
         try {
             const id = req.params.id
-            if (!id) {
-                throw new Error(`События не существует!`)
-            }
             const data = await eventService.getEvent(id)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async updateEvent(req, res) {
+    async updateEvent(req, res, next) {
         try {
             const id = req.params.id
             const body = req.body
-            if (!id || !body) {
-                throw new Error('Ошибка запроса')
-            }
-            const data = eventService.updateEvent(id, body)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
-            res.status(200).json('Событие обновлено!')
+            const data = await eventService.updateEvent(id, body)
+            res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async deleteEvent(req, res) {
+    async deleteEvent(req, res, next) {
         try {
             const id = req.params.id
-            if (!id) {
-                throw new Error(`События не существует!`) 
-            }
             const data = await eventService.deleteEvent(id)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
-            res.status(200).json('Событие удалено!')
+            res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)            
+            next(e)           
         }
     }
 
-    async createEventGroup(req, res) {
+    async createEventGroup(req, res, next) {
         try {
             const body = req.body
-            if (!body) {
-                throw new Error('Отсутствует тело запроса!')
-            }
             const data = await eventService.createEventGroup(body)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(201).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async getEventGroups(req, res) {
+    async getEventGroups(req, res, next) {
         try {
             const data = await eventService.getEventGroups()
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }       
     }
 
-    async deleteEventGroup(req, res) {
+    async deleteEventGroup(req, res, next) {
         try {
             const id = req.params.id
-            if (!id) {
-                throw new Error(`Группы не существует!`) 
-            }
             const data = await eventService.deleteEventGroup(id)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json('Группа удалена!')
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)            
+            next(e)           
         }
     }
 
-    async createEventType(req, res) {
+    async createEventType(req, res, next) {
         try {
             const body = req.body
-            if (!body) {
-                throw new Error('Отсутствует тело запроса!')
-            }
             const data = await eventService.createEventType(body)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(201).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async getEventTypes(req, res) {
+    async getEventTypes(req, res, next) {
         try {
             const data = await eventService.getEventTypes()
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }      
     }
 
-    async deleteEventType(req, res) {
+    async deleteEventType(req, res, next) {
         try {
             const id = req.params.id
-            if (!id) {
-                throw new Error(`Типа не существует!`) 
-            }
             const data = await eventService.deleteEventType(id)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json('Тип удален!')
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)            
+            next(e)          
         }
     }
     
-    async createEventSpeaker(req, res) {
+    async createEventSpeaker(req, res, next) {
         try {
             const body = req.body
-            if (!body) {
-                throw new Error('Отсутствует тело запроса!')
-            }
             const data = await eventService.createEventSpeaker(body)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(201).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }
     }
 
-    async getEventSpeakers(req, res) {
+    async getEventSpeakers(req, res, next) {
         try {
             const data = await eventService.getEventSpeakers()
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json(data)
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)
+            next(e)
         }      
     }
 
-    async deleteEventSpeaker(req, res) {
+    async deleteEventSpeaker(req, res, next) {
         try {
             const id = req.params.id
-            if (!id) {
-                throw new Error(`Спикера не существует!`) 
-            }
             const data = await eventService.deleteEvent(id)
-            if (!data) {
-                throw new Error('Что-то пошло не так!')
-            }
             res.status(200).json('Спикер удален!')
         } catch (e) {
-            res.status(400).json(e.message)
-            console.log(e.message)            
+            next(e)
         }
     }
 
