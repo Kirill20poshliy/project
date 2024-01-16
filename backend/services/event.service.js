@@ -92,7 +92,7 @@ class EventService {
         if (!data) {
             ApiError.ServerError()
         }
-        return data
+        return {data: data}
     }
 
     async deleteEventGroup(id) {
@@ -130,7 +130,7 @@ class EventService {
         if (!data) {
             ApiError.ServerError()
         }
-        return data
+        return {data: data}
     }
 
     async deleteEventType(id) {
@@ -168,7 +168,7 @@ class EventService {
         if (!data) {
             ApiError.ServerError()
         }
-        return data
+        return {data: data}
     }
 
     async deleteEventSpeaker(id) {

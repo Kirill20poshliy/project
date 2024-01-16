@@ -72,6 +72,16 @@ class EventController {
         }       
     }
 
+    async getEventGroup(req, res, next) {
+        try {
+            const id = req.params.id
+            const data = await eventService.getEventGroup(id)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async deleteEventGroup(req, res, next) {
         try {
             const id = req.params.id
@@ -101,6 +111,16 @@ class EventController {
         }      
     }
 
+    async getEventType(req, res, next) {
+        try {
+            const id = req.params.id
+            const data = await eventService.getEventType(id)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async deleteEventType(req, res, next) {
         try {
             const id = req.params.id
@@ -128,6 +148,16 @@ class EventController {
         } catch (e) {
             next(e)
         }      
+    }
+
+    async getEventSpeaker(req, res, next) {
+        try {
+            const id = req.params.id
+            const data = await eventService.getEventSpeaker(id)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
     }
 
     async deleteEventSpeaker(req, res, next) {
