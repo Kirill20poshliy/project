@@ -18,7 +18,12 @@ class EventService {
     }
 
     async getEvents(query) {
-        const data = await event.findAll()
+        const data = await event.findAll({            
+            order: [
+                ['datetime', 'DESC'],
+                ['id', 'DESC'],
+            ]
+        })
         if (!data) {
             ApiError.ServerError()
         }
@@ -126,7 +131,7 @@ class EventService {
     }
 
     async getEventType(id) {
-        const data = await group.findByPk(id)
+        const data = await type.findByPk(id)
         if (!data) {
             ApiError.ServerError()
         }
@@ -164,7 +169,7 @@ class EventService {
     }
 
     async getEventSpeaker(id) {
-        const data = await group.findByPk(id)
+        const data = await speaker.findByPk(id)
         if (!data) {
             ApiError.ServerError()
         }
