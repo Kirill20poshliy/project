@@ -8,11 +8,11 @@ class EventService {
 
     async createEvent(body) {
         if (!body) {
-            ApiError.BadRequest('Отсутствует тело запроса!')
+            throw ApiError.BadRequest('Отсутствует тело запроса!')
         }
         const data = await event.create(body)
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Событие создано!', data: data}
     }
@@ -25,7 +25,7 @@ class EventService {
             ]
         })
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         let result = data
         if (query.year) {
@@ -42,44 +42,44 @@ class EventService {
 
     async getEvent(id) {
         if (!id) {
-            ApiError.BadRequest(`Отсутствует id запроса!`)
+            throw ApiError.BadRequest(`Отсутствует id запроса!`)
         }
         const data = await event.findByPk(id)
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {data: data}
     }
     
     async updateEvent(id, body) {
         if (!id || !body) {
-            ApiError.BadRequest('Ошибка запроса')
+            throw ApiError.BadRequest('Ошибка запроса')
         }
         const data = await event.update(body, { where: {id: id} })
             if (!data) {
-                ApiError.ServerError()
+                throw ApiError.ServerError()
             }
         return {message: 'Событие обновлено!', data: data}
     }
     
     async deleteEvent(id) {
         if (!id) {
-            ApiError.BadRequest(`Отсутствует id запроса!`)
+            throw ApiError.BadRequest(`Отсутствует id запроса!`)
         }
         const result = await event.destroy({ where: {id: id} })
         if (!result) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Событие удалено!', data: result}
     }
 
     async createEventGroup(body) {
         if (!body) {
-            ApiError.BadRequest('Отсутствует тело запроса!')
+            throw ApiError.BadRequest('Отсутствует тело запроса!')
         }
         const data = await group.create({ code: body.code })
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Группа создана!', data: data}
     }
@@ -87,37 +87,51 @@ class EventService {
     async getEventGroups() {
         const data = await group.findAll()
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {count: data.length, data: data}
     }
 
     async getEventGroup(id) {
+        if (!id) {
+            throw ApiError.BadRequest(`Отсутствует id запроса!`)
+        }
         const data = await group.findByPk(id)
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {data: data}
+    }
+    
+    async updateEventGroup(id, body) {
+        if (!id || !body) {
+            throw ApiError.BadRequest('Некорректный запрос!')
+        }
+        const data = await group.update(body, { where: { id: id } })
+        if (!data) {
+            throw ApiError.ServerError()
+        }
+        return {message: 'Группа обновлена!', data: data}
     }
 
     async deleteEventGroup(id) {
         if (!id) {
-            ApiError.BadRequest(`Отсутствует id зпроса!`)
+            throw ApiError.BadRequest(`Отсутствует id зпроса!`)
         }
         const result = await group.destroy({ where: {id: id} })
         if (!result) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Группа удалена!', data: result}
     }
 
     async createEventType(body) {
         if (!body) {
-            ApiError.BadRequest('Отсутствует тело запроса!')
+            throw ApiError.BadRequest('Отсутствует тело запроса!')
         }
         const data = await type.create({ name: body.name })
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Тип создан!', data: data}
     }
@@ -125,7 +139,7 @@ class EventService {
     async getEventTypes() {
         const data = await type.findAll()
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {count: data.length, data: data}
     }
@@ -133,29 +147,40 @@ class EventService {
     async getEventType(id) {
         const data = await type.findByPk(id)
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {data: data}
     }
 
+    async updateEventType(id, body) {
+        if (!id || !body) {
+            throw ApiError.BadRequest('Некорректный запрос!')
+        }
+        const data = await type.update(body, { where: { id: id } })
+        if (!data) {
+            throw ApiError.ServerError()
+        }
+        return {message: 'Тип обновлен!', data: data}
+    }
+
     async deleteEventType(id) {
         if (!id) {
-            ApiError.BadRequest(`Отсутствует id запроса!`)
+            throw ApiError.BadRequest(`Отсутствует id запроса!`)
         }
         const result = await type.destroy({ where: {id: id} })
         if (!result) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Тип удалён!', data: result}
     }
 
     async createEventSpeaker(body) {
         if (!body) {
-            ApiError.BadRequest('Отсутствует тело запроса!')
+            throw ApiError.BadRequest('Отсутствует тело запроса!')
         }
         const data = await speaker.create({ name: body.name })
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Спикер создан!', data: data}
     }
@@ -163,7 +188,7 @@ class EventService {
     async getEventSpeakers() {
         const data = await speaker.findAll()
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {count: data.length, data: data}
     }
@@ -171,18 +196,29 @@ class EventService {
     async getEventSpeaker(id) {
         const data = await speaker.findByPk(id)
         if (!data) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {data: data}
     }
 
+    async updateEventSpeaker(id, body) {
+        if (!id || !body) {
+            throw ApiError.BadRequest('Некорректный запрос!')
+        }
+        const data = await speaker.update(body, { where: { id: id } })
+        if (!data) {
+            throw ApiError.ServerError()
+        }
+        return {message: 'Спикер обновлен!', data: data}
+    }
+
     async deleteEventSpeaker(id) {
         if (!id) {
-            ApiError.BadRequest(`Спикера не существует!`)
+            throw ApiError.BadRequest(`Спикера не существует!`)
         }
         const result = await speaker.destroy({ where: {id: id} })
         if (!result) {
-            ApiError.ServerError()
+            throw ApiError.ServerError()
         }
         return {message: 'Спикер удалён!', data: result}
     }

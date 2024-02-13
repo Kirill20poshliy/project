@@ -82,6 +82,17 @@ class EventController {
         }
     }
 
+    async updateEventGroup(req, res, next) {
+        try {
+            const id = req.params.id
+            const body = req.body
+            const data = await eventService.updateEventGroup(id, body)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async deleteEventGroup(req, res, next) {
         try {
             const id = req.params.id
@@ -115,6 +126,17 @@ class EventController {
         try {
             const id = req.params.id
             const data = await eventService.getEventType(id)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async updateEventType(req, res, next) {
+        try {
+            const id = req.params.id
+            const body = req.body
+            const data = await eventService.updateEventType(id, body)
             res.status(200).json(data)
         } catch (e) {
             next(e)
@@ -160,10 +182,21 @@ class EventController {
         }
     }
 
+    async updateEventSpeaker(req, res, next) {
+        try {
+            const id = req.params.id
+            const body = req.body
+            const data = await eventService.updateEventSpeaker(id, body)
+            res.status(200).json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async deleteEventSpeaker(req, res, next) {
         try {
             const id = req.params.id
-            const data = await eventService.deleteEvent(id)
+            const data = await eventService.deleteEventSpeaker(id)
             res.status(200).json('Спикер удален!')
         } catch (e) {
             next(e)

@@ -1,4 +1,9 @@
 backend/node_modules
+
 backend/.env
+
 telebot/node_modules
+
 telebot/.env
+
+frontend/node_modules

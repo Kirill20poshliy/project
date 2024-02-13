@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Space, Typography, Button, Flex, Divider } from 'antd';
+import { Space, Typography, Button, Flex, Divider, Spin } from 'antd';
 import EventCard from './EventCard';
 
 import {
@@ -60,6 +60,7 @@ export default function CardList() {
                     cancel={() => setModal(modal ? false : true)}   
                     />
             </Space>
+            <Spin spinning={isLoading} fullscreen/>
         </>
 
     )
