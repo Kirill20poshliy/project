@@ -1,11 +1,12 @@
 import { Telegraf } from 'telegraf'
 import 'dotenv/config'
 import shedule from 'node-schedule'
+import messageBuildService from './services/messageBuild.service.js'
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 const rule = new shedule.RecurrenceRule()
-rule.hour = 10
-rule.minute = 0
+rule.hour = 23
+rule.minute = 22
 
 const messages = []
 
@@ -27,13 +28,22 @@ bot.command('clear', (ctx) => {
     });
 })
 
-bot.action('btn-1', (ctx) => {
-    ctx.reply('Hello! From btn-1')
+bot.action('btn-1', async (ctx) => {
+    await messageBuildService.build().then(msg => {
+        ctx.reply(msg, {parse_mode: 'HTML'})
+    })
 })
+
 bot.action('btn-2', (ctx) => {
-    ctx.reply('Hello! From btn-2')
-    const job = shedule.scheduleJob(rule, () => {
-        ctx.sendMessage('Shedule')
+    ctx.reply(
+`Вы включили рассылку актуального расписания
+Рассылка будет приходить ежедневно в 10:00
+PS: Чтобы отключить данную функцию ${'${description}'}
+`)
+    const job = shedule.scheduleJob(rule, async () => {
+        await messageBuildService.build().then(msg => {
+            ctx.sendMessage(msg, {parse_mode: 'HTML'})
+        })
     })
 })
 

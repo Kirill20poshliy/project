@@ -175,7 +175,7 @@ export default function EventCard(props) {
             <ModalWin 
                 modalTitle='Редактировать событие'
                 modal={modal}
-                cancel={() => setModal(modal ? false : true)}
+                cancel={() => setModal(false)}
                 formContent={fields}
                 />
         </Card>

@@ -20,9 +20,9 @@ export default function ModalWin(props) {
 
     const initialValues = {
         subject: formContent?.subject,
-        speaker: formContent?.speaker || 6,
-        type: formContent?.type || 4, 
-        group: formContent?.group || 6,
+        speaker: formContent?.speaker || 'Не выбрано',
+        type: formContent?.type || 'Не выбрано', 
+        group: formContent?.group || 'Не выбрано',
         canceled: formContent?.canceled,
         link: formContent?.link,
         date: dayjs(formContent?.date),
