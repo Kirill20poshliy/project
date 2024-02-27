@@ -56,9 +56,9 @@ class EventService {
             throw ApiError.BadRequest('Ошибка запроса')
         }
         const data = await event.update(body, { where: {id: id} })
-            if (!data) {
-                throw ApiError.ServerError()
-            }
+        if (!data) {
+            throw ApiError.ServerError()
+        }
         return {message: 'Событие обновлено!', data: data}
     }
     
