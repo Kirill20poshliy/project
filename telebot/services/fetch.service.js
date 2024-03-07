@@ -54,6 +54,20 @@ class FetchService {
             return(e?.message)
         }
     }
+
+    async registerJob() {
+        try {
+            const result = await axios({
+                method: 'POST',
+                url: `http://localhost:8080/api/speakers/${id}`,
+                data: {}
+            })
+            return result.data?.data
+        } catch (e) {
+            console.log(e)
+            return(e?.message)
+        }        
+    }
     
 }
 
