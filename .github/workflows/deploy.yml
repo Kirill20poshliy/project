@@ -1,0 +1,34 @@
+name: Deploy
+on: push
+jobs:
+    lint-front:
+        runs-on: ubuntu-20.04
+        steps:
+          - name: Get code
+            uses: actions/checkout@v3
+          - name: Lint frontend
+            run: 
+                cd ../frontend
+                npm ci
+                npm run lint
+    build-front:
+        runs-on: ubuntu-20.04
+        steps:
+          - name: Get code
+            uses: actions/checkout@v3
+          - name: Build frontend
+            run:
+                cd ../frontend
+                npm ci
+                npm run build
+    # deploy:
+    #     runs-on: ubuntu-20.04
+    #     steps:
+    #       - name: Get code
+    #         uses: SamKirkland/FTP-Deploy-Action@4.0.0
+    #         with:
+    #             server: ${{ secrets. }}
+    #             username: ${{ secrets. }}
+    #             password: ${{ secrets. }}
+    #             server-dir: ${{ secrets. }}
+
