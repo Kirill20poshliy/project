@@ -9,7 +9,7 @@ jobs:
           - name: CD Front
             run: cd frontend
           - name: Install Deps
-            run: npm ci
+            run: npm install
           - name: Lint frontend
             run: npm run lint
     build-front:
@@ -20,7 +20,7 @@ jobs:
           - name: CD Front
             run: cd frontend
           - name: Install Deps
-            run: npm ci          
+            run: npm install        
           - name: Build frontend
             run: npm run build
     # deploy:
