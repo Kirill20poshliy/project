@@ -6,23 +6,29 @@ jobs:
         steps:
           - name: Get code
             uses: actions/checkout@v3
-          - name: CD Front
-            run: cd ./frontend
-          - name: Install Deps
-            run: npm install
-          - name: Lint frontend
-            run: npm run lint
+        #   - name: CD Front
+        #     run: cd ./frontend
+          - name: Install Deps & Lint
+            run: |
+                cd frontend
+                npm install
+                npm run lint
+        #   - name: Lint frontend
+        #     run: npm run lint
     build-front:
         runs-on: ubuntu-20.04
         steps:
           - name: Get code
             uses: actions/checkout@v3
-          - name: CD Front
-            run: cd ./frontend
-          - name: Install Deps
-            run: npm install        
-          - name: Build frontend
-            run: npm run build
+        #   - name: CD Front
+        #     run: cd ./frontend
+          - name: Install Deps & Build
+            run: |
+                cd frontend
+                npm install  
+                npm run build      
+        #   - name: Build frontend
+        #     run: npm run build
     # deploy:
     #     runs-on: ubuntu-20.04
     #     steps:
