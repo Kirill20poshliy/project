@@ -6,7 +6,7 @@ EXPOSE 3000
 
 COPY ./ /usr/app/frontend
 
-RUN npm ci
+RUN npm install
 
 RUN npm run build
 
