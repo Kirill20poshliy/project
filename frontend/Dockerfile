@@ -1,10 +1,10 @@
 FROM node:alpine
 
-WORKDIR /usr/app/client
+WORKDIR /usr/app/frontend
 
 EXPOSE 3000
 
-COPY ./ /usr/app/client
+COPY ./ /usr/app/frontend
 
 RUN npm ci
 
