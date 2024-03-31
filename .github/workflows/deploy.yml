@@ -6,37 +6,31 @@ jobs:
         steps:
           - name: Get code
             uses: actions/checkout@v3
-        #   - name: CD Front
-        #     run: cd ./frontend
           - name: Install Deps & Lint
             run: |
                 cd frontend
                 npm install
                 npm run lint
-        #   - name: Lint frontend
-        #     run: npm run lint
     build-front:
         runs-on: ubuntu-20.04
         steps:
           - name: Get code
             uses: actions/checkout@v3
-        #   - name: CD Front
-        #     run: cd ./frontend
           - name: Install Deps & Build
             run: |
                 cd frontend
                 npm install  
                 npm run build      
-        #   - name: Build frontend
-        #     run: npm run build
     # deploy:
     #     runs-on: ubuntu-20.04
     #     steps:
     #       - name: Get code
+    #         uses: actions/checkout@v3
+    #       - name: Delivery
     #         uses: SamKirkland/FTP-Deploy-Action@4.0.0
     #         with:
     #             server: ${{ secrets. }}
     #             username: ${{ secrets. }}
     #             password: ${{ secrets. }}
-    #             server-dir: ${{ secrets. }}
+    #             server-dir: ./...
 

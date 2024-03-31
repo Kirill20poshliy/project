@@ -1,0 +1,45 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      DATABASE_DIALECT: ${DATABASE_DIALECT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - /home/site/db:/var/lib/postgresql/data
+    ports:
+      - 54321:5432
+  backend:
+    build: backend/
+    restart: always
+    ports: 
+    - 8080:8080
+    depends_on:
+      - postgres
+  frontend:
+    build: frontend/
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    volumes:
+      - /home/site:./frontend/build
+  telebot:
+    build: telebot/
+    restart: always
+    ports: 
+      - 88:88
+    depends_on:
+      - backend
+  proxy:
+    image: nginx:mainline
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
