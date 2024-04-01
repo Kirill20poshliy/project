@@ -6,6 +6,6 @@ EXPOSE 8080
 
 COPY ./ /usr/app/backend
 
-RUN npm install
+RUN npm ci
 
 ENTRYPOINT ["node", "index.js"]

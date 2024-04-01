@@ -6,6 +6,6 @@ EXPOSE 88
 
 COPY ./ /usr/app/telebot
 
-RUN npm install
+RUN npm ci
 
 ENTRYPOINT ["npm", "start"]
