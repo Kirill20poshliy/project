@@ -1,4 +1,4 @@
-FROM node:18.5.0
+FROM node:alpine
 
 WORKDIR /usr/app/telebot
 
