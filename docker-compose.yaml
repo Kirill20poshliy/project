@@ -28,7 +28,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - /home/site/build:/usr/app/frontend/build
+      - /home/site/build:/build
   telebot:
     build: telebot/
     restart: always
