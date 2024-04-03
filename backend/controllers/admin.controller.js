@@ -9,7 +9,7 @@ class AdminController {
             const regData = await adminService.registration(body)
             res.status(201).json(regData)
         } catch (e) {
-            next(e)
+            console.log(e)
         }        
     }
 
