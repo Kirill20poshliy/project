@@ -24,7 +24,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       ADMIN_LOGIN: ${ADMIN_LOGIN}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      NODE_ENV: production
     ports: 
     - 8080:8080
     depends_on:
