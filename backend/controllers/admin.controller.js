@@ -3,6 +3,16 @@ const ApiError = require('../errors/api.errors')
 
 class AdminController {
 
+    async createSuperUser(req, res, next) {
+        try {
+            const body = {login: process.env.ADMIN_LOGIN, password: process.env.ADMIN_PASSWORD}
+            const regData = await adminService.registration(body)
+            res.status(201).json(regData)
+        } catch (e) {
+            next(e)
+        }        
+    }
+
     async registration(req, res, next) {
         try {
             const body = req.body

@@ -6,6 +6,7 @@ const sheduleRouter = require('./routes/admin.routes')
 const { sequelize, connectDB } = require('./db/db.config')
 const errorMiddleware = require('./middlewares/error.middleware')
 const cookieParser = require('cookie-parser')
+const adminController = require('./controllers/admin.controller')
 
 const PORT = process.env.PORT || 8080
 const corsOptions = {
@@ -48,3 +49,4 @@ const start = () => {
 }
 
 start()
+adminController.createSuperUser()
