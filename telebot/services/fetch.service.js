@@ -10,7 +10,7 @@ class FetchService {
             const month = now.month()
             const day = now.date()
             const result = await axios.get(
-                `http://localhost:8080/api/events?year=${year}&month=${month}&day=${day}`
+                `api/events?year=${year}&month=${month}&day=${day}`
             )
             return result.data
         } catch (e) {
@@ -22,7 +22,7 @@ class FetchService {
     async getEventGroup(id) {
         try {
             const result = await axios.get(
-                `http://localhost:8080/api/groups/${id}`
+                `api/groups/${id}`
             )
             return result.data.data?.code
         } catch (e) {
@@ -34,7 +34,7 @@ class FetchService {
     async getEventType(id) {
         try {
             const result = await axios.get(
-                `http://localhost:8080/api/types/${id}`
+                `api/types/${id}`
             )
             return result.data.data?.name
         } catch (e) {
@@ -46,7 +46,7 @@ class FetchService {
     async getEventSpeaker(id) {
         try {
             const result = await axios.get(
-                `http://localhost:8080/api/speakers/${id}`
+                `api/speakers/${id}`
             )
             return result.data?.data.name
         } catch (e) {
@@ -59,7 +59,7 @@ class FetchService {
         try {
             const result = await axios({
                 method: 'POST',
-                url: `http://localhost:8080/api/speakers/${id}`,
+                url: `api/speakers/${id}`,
                 data: {}
             })
             return result.data?.data
