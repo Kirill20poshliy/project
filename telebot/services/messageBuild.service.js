@@ -28,7 +28,7 @@ ${event.type}
 
 Группа: ${event.group ? event.group : 'Поток'}
 Преподаватель: ${event.speaker}
-Время: ${dayjs.tz(event.datetime, 'en:Europe/Moscow:1480672885894').format('DD.MM.YYYY HH:mm')}
+Время: ${dayjs.tz(event.datetime, 'Europe/Moscow').format('DD.MM.YYYY HH:mm')}
 
 ${event.link ? `Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}
 
