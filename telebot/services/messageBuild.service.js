@@ -3,7 +3,7 @@ import dayjs from "dayjs"
 import timezone from 'dayjs/plugin/timezone'
 
 dayjs.extend(timezone)
-// dayjs.tz.guess()
+dayjs.tz.guess()
 
 class MessageBuild {
 
@@ -28,7 +28,7 @@ ${event.type}
 
 Группа: ${event.group ? event.group : 'Поток'}
 Преподаватель: ${event.speaker}
-Время: ${dayjs.tz(event.datetime, 'Russia/Moscow').format('DD.MM.YYYY HH:mm')}
+Время: ${dayjs(event.datetime).format('DD.MM.YYYY HH:mm')}
 
 ${event.link ? `Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}
 
