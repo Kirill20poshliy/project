@@ -1,6 +1,6 @@
 import fetchService from "./fetch.service.js"
 import dayjs from "dayjs"
-import timezone from 'dayjs/plugin/timezone'
+import timezone from 'dayjs/plugin/timezone.js'
 
 dayjs.extend(timezone)
 dayjs.tz.guess()
