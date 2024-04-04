@@ -3,6 +3,8 @@ import axios from 'axios'
 
 class FetchService {
 
+    baseUrl = 'http://91.236.199.149/'
+
     async getCurrentShedule() {
         try {
             const now = dayjs(Date.now())
@@ -10,7 +12,7 @@ class FetchService {
             const month = now.month()
             const day = now.date()
             const result = await axios.get(
-                `api/events?year=${year}&month=${month}&day=${day}`
+                `${this.baseUrl}api/events?year=${year}&month=${month}&day=${day}`
             )
             return result.data
         } catch (e) {
@@ -22,7 +24,7 @@ class FetchService {
     async getEventGroup(id) {
         try {
             const result = await axios.get(
-                `api/groups/${id}`
+                `${this.baseUrl}api/groups/${id}`
             )
             return result.data.data?.code
         } catch (e) {
@@ -34,7 +36,7 @@ class FetchService {
     async getEventType(id) {
         try {
             const result = await axios.get(
-                `api/types/${id}`
+                `${this.baseUrl}api/types/${id}`
             )
             return result.data.data?.name
         } catch (e) {
@@ -46,7 +48,7 @@ class FetchService {
     async getEventSpeaker(id) {
         try {
             const result = await axios.get(
-                `api/speakers/${id}`
+                `${this.baseUrl}api/speakers/${id}`
             )
             return result.data?.data.name
         } catch (e) {
@@ -59,7 +61,7 @@ class FetchService {
         try {
             const result = await axios({
                 method: 'POST',
-                url: `api/speakers/${id}`,
+                url: `${this.baseUrl}api/speakers/${id}`,
                 data: {}
             })
             return result.data?.data
