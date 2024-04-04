@@ -1,5 +1,6 @@
 import fetchService from "./fetch.service.js"
 import dayjs from "dayjs"
+import 'dayjs/locale/de'
 
 class MessageBuild {
 
@@ -24,7 +25,7 @@ ${event.type}
 
 Группа: ${event.group ? event.group : 'Поток'}
 Преподаватель: ${event.speaker}
-Время: ${dayjs(event.datetime).format('DD.MM.YYYY HH:mm')}
+Время: ${dayjs(event.datetime).locale('de').format('DD.MM.YYYY HH:mm')}
 ${event.link ? `Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}
 
 `))}`
