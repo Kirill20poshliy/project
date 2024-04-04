@@ -1,6 +1,9 @@
 import fetchService from "./fetch.service.js"
 import dayjs from "dayjs"
-import 'dayjs/locale/de'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(timezone)
+// dayjs.tz.guess()
 
 class MessageBuild {
 
@@ -25,7 +28,8 @@ ${event.type}
 
 Группа: ${event.group ? event.group : 'Поток'}
 Преподаватель: ${event.speaker}
-Время: ${dayjs(event.datetime).locale('de').format('DD.MM.YYYY HH:mm')}
+Время: ${dayjs.tz(event.datetime, 'Russia/Moscow').format('DD.MM.YYYY HH:mm')}
+
 ${event.link ? `Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}
 
 `))}`
