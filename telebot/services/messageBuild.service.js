@@ -18,8 +18,6 @@ class MessageBuild {
                     return data
                 })
             return `
-<strong>Актуальное расписание:</strong>
-
 ${newShedule.map(event => (
 `<i><b>${event.title}</b></i>
 ${event.type}
