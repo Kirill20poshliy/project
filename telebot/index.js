@@ -1,6 +1,12 @@
 import { Telegraf } from 'telegraf'
 import 'dotenv/config'
 import messageBuildService from './services/messageBuild.service.js'
+import dayjs from "dayjs"
+import utc from 'dayjs/plugin/utc.js'
+import timezone from 'dayjs/plugin/timezone.js'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 // import shedule from 'node-schedule'
 
 // const rule = new shedule.RecurrenceRule()
@@ -10,25 +16,31 @@ import messageBuildService from './services/messageBuild.service.js'
 // const messages = []
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
-const reply_keyboard = (ctx) => {
-    ctx.reply(`Выбери действие`, {
+const reply_btns = async (ctx) => {
+    await ctx.reply(`Выбери действие`, {
         reply_markup: {
             inline_keyboard: [
                 [{text: '📅 Расписание на сегодня', callback_data: 'btn-1'}],
+                // [{text: '⏰ Включить/выключить напоминания', callback_data: 'btn-2'}],
             ],
         },        
     })
 }
 
-
 bot.start((ctx) => {
-    reply_keyboard(ctx)
+    reply_btns(ctx)
 })
 
 bot.action('btn-1', async (ctx) => {
-    await messageBuildService.build().then(msg => {
-        ctx.reply(msg, {parse_mode: 'HTML'})
-        reply_keyboard(ctx)
+    messageBuildService.build().then(async messages => {
+        await ctx.sendMessage(
+            `<b>Расписание на ${dayjs.utc(Date.now()).tz('Europe/Moscow').format('DD.MM.YYYY')}</b>`,
+            {chat_id: ctx.chat.id, parse_mode: 'HTML'}
+        )
+        await messages.map(message => {
+            ctx.sendMessage(message, {chat_id: ctx.chat.id, parse_mode: 'HTML'})
+        })
+        await reply_btns(ctx)
     })
 })
 

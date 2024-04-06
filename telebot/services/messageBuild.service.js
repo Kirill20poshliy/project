@@ -1,38 +1,60 @@
 import fetchService from "./fetch.service.js"
 import dayjs from "dayjs"
-// import timezone from 'dayjs/plugin/timezone.js'
+import utc from 'dayjs/plugin/utc.js'
+import timezone from 'dayjs/plugin/timezone.js'
 
-// dayjs.extend(timezone)
-// dayjs.tz.guess()
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 class MessageBuild {
+
+    caseType(type) {
+        switch(type) {
+            case 'Лекция':
+                return('🔴')
+            case 'Семинар':
+                return('🟢')
+            case 'Модули на платформе':
+                return('🟡')
+            case 'Внеучебное мероприятие':
+                return('🔵')
+            case 'Экзамен':
+                return('🟣')
+            case 'Зачёт':
+                return('🟣')
+            case 'Пересдача':
+                return('🟣')
+            case 'Вебинар':
+                return('🔴')
+        }
+    }
 
     async build() {
         try {
             const shedule = await fetchService.getCurrentShedule()
                 if (!shedule.count) {
-                    return (`
+                    return ([`
 <strong>Ура!</strong>
 Сегодня список пар пуст ✨
-`)
+`])
                 }
                 const newShedule = await Promise.all(shedule.data.map(event => {
                     return this.mutateEvent(event)
                 })).then(data => {
                     return data
                 })
-            return `
-${newShedule.map(event => (
+                return (
+                    newShedule.map(event => (
 `<i><b>${event.title}</b></i>
-${event.type}
+${this.caseType(event.type)} ${event.type}
 
 Группа: ${event.group ? event.group : 'Поток'}
 Преподаватель: ${event.speaker}
-Время: ${dayjs(event.datetime).format('DD.MM.YYYY HH:mm')}
+Время: ${dayjs.utc(event.datetime).tz('Europe/Moscow').format('DD.MM.YYYY HH:mm')}
 
-${event.link ? `Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}
-
-`))}`
+${event.link ? `🔗 Ссылка на подключение: ${event.link}` : "Ссылка отсутствует."}`
+                    )).reverse()
+                )
         } catch (e) {
             console.log(e)
             return e?.message
