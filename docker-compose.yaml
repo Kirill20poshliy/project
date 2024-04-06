@@ -32,8 +32,8 @@ services:
       - 3000:3000
     depends_on:
       - backend
-    # volumes:
-    #   - /home/site/build:/usr/app/frontend/build
+    volumes:
+      - /home/site/build:/usr/app/frontend/build
   telebot:
     build: telebot/
     restart: always
